@@ -1,0 +1,103 @@
+<html>
+<head>
+</head>
+<body style="background-color:gray" >
+
+<canvas id="clock" width=512 height=512>
+²»Ö§³Ö
+</canvas>
+
+<script language="Javascript">
+var clock=document.getElementById('clock');
+var cxt = clock.getContext('2d');
+
+function drawClock()
+{
+cxt.clearRect(0,0,512,512);
+
+var now = new Date()
+var hour = now.getHours();
+var min = now.getMinutes();
+var sec = now.getSeconds();
+min = min + sec / 60;
+hour = hour > 12 ? hour - 12 : hour;
+hour = hour + min / 60;
+
+cxt.lineWidth = 10;
+cxt.strokeStyle = "Blue";
+cxt.beginPath();
+cxt.arc(256, 256, 240, 0, 360, false);
+cxt.closePath();
+cxt.stroke();
+
+cxt.lineWidth = 8;
+cxt.strokeStyle = "Blue";
+for(var i = 0; i < 12; i++){
+	cxt.save();
+	cxt.translate(256, 256);
+	cxt.rotate(i * Math.PI / 6);
+	cxt.beginPath();
+	cxt.moveTo(0, 236);
+	cxt.lineTo(0, 205);
+	cxt.closePath();
+	cxt.stroke();
+	cxt.restore();
+}
+
+cxt.lineWidth=4;
+cxt.strokeStyle="Blue";
+for(var i=0;i<60;i++){
+	cxt.save();
+	cxt.translate(256, 256);
+	cxt.rotate(i * Math.PI / 30);
+	cxt.beginPath();
+	cxt.moveTo(0, 236);
+	cxt.lineTo(0, 220);
+	cxt.closePath();
+	cxt.stroke();
+	cxt.restore();
+}
+
+cxt.save();
+cxt.lineWidth=16;
+cxt.strokeStyle="Aqua";
+cxt.translate(256,256);
+cxt.rotate(hour*Math.PI/6);
+cxt.beginPath();
+cxt.moveTo(0,-128);
+cxt.lineTo(0,16);
+cxt.closePath();
+cxt.stroke();
+cxt.restore();
+
+cxt.save();
+cxt.lineWidth=8;
+cxt.strokeStyle="Aqua";
+cxt.translate(256,256);
+cxt.rotate(min*Math.PI/30);
+cxt.beginPath();
+cxt.moveTo(0,-184);
+cxt.lineTo(0,32);
+cxt.closePath();
+cxt.stroke();
+cxt.restore();
+
+cxt.save();
+cxt.lineWidth=4;
+cxt.strokeStyle="Aqua";
+cxt.translate(256,256);
+cxt.rotate(sec*Math.PI/30);
+cxt.beginPath();
+cxt.moveTo(0,-216);
+cxt.lineTo(0,0);
+cxt.closePath();
+cxt.stroke();
+cxt.restore();
+
+}
+
+setInterval(drawClock,1000);
+
+</script>
+</body>
+</html>
